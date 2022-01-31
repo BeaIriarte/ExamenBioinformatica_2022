@@ -210,20 +210,21 @@ t.test(JFK$temp, LGA$temp)
 
 ```{r}
 boxplot(JFK$temp ~ LGA$temp, col = c(2,3), legend.text = TRUE, xlab = "Temperatura:LGA", ylab = "Temperatura:JFK", main = "Boxplot")
+### Se observa una tendencia positiva que confirma la relación significativa hallada en el t.test.
 
 par(mfrow = c(1,2))
 boxplot(JFK$temp, col = 2, legend.text = TRUE, main = "Boxplot JFK", xlab = "Origen: JFK", ylab = "Temperatura")
 boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Origen: LGA", ylab = "Temperatura")
 ```
-### Se observa una tendencia positiva que confirma la relación significativa hallada en el t.test.
+
 
 # Pregunta 5. 
 
 ## a. ¿Cuál es el punto con FC (Fold change) más grande en valores absolutos?
 
-### El gen con mayor Fold change en valores absolutos es aquel que se sitúa más alejado del centro sobre el eje x. Por tanto, el gen en cuestión sería el de más a la izquierda, situado más o menos por debajo del gen Csn. Este gen en cuestión no tiene nombre. Se adjunta el pdf del examen con el gen redondeado.
+#### El gen con mayor Fold change en valores absolutos es aquel que se sitúa más alejado del centro sobre el eje x. Por tanto, el gen en cuestión sería el de más a la izquierda, situado más o menos por debajo del gen Csn. Este gen en cuestión no tiene nombre. Se adjunta el pdf del examen con el gen redondeado.
 
 ## b. ¿Qué gen sobreexpresado es el más significativo?
 
-### El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y (-log(pvalue)), lo cual significa que su p value es muy bajo, inferior a 0.05, por lo que tiene es estadísticamente muy significativo.
+#### El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y (-log(pvalue)), lo cual significa que su p value es muy bajo, inferior a 0.05, por lo que tiene es estadísticamente muy significativo.
 
