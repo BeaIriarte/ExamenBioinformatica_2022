@@ -178,3 +178,5 @@ boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Ori
 ## b. ¿Qué gen sobreexpresado es el más significativo?
 
 ###  El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y (-log(pvalue)), lo cual significa que su p value es muy bajo, inferior a 0.05, por lo que tiene es estadísticamente muy significativo.
+
+sessionInfo()
