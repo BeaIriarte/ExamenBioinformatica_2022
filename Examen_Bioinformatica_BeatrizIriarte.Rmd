@@ -1,47 +1,48 @@
-# ExamenBioinformatica_2022
+---
+title: "ExamenBioinformatica"
+author: "Beatriz Iriarte Torres"
+date: "31/1/2022"
+output: html_document
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
 library(nycflights13)
-
 weather <- nycflights13::weather
+```
 
-# Pregunta 1. Comandos de Linux
-
-## a) ¿Cuántas palabras hay en el fichero?
-
-    ## cat genes.txt | wc -w
-    
-## b) ¿Cómo cambiarías todos los tabulados por guiones?
-
-    ## cat genes.txt |  sed 's/\t/-/g'
-
-## c) ¿Cómo cambiarías solo la primera aparición?
-
-    ## cat genes.txt | sed 's/\t/-/'
-
-## d) ¿Cómo buscarías todos los genes excepto el gen llamado DSTYK?
-
-    ## cat genes.txt | -v grep DSTYK
-    
-# Pregunta 2. Comandos RStudio
+# Ejercicio 1. Rstudio
 
 ## a) ¿Cuántas columnas y cuántos registros tiene ese dataset?
 
+```{r}
 ncol(weather)
 nrow(weather)
+```
 
 ## b) ¿Cuántos "origin" diferentes existen y para cada uno de ellos cuántos registros hay?
 
+```{r}
 table(weather$origin)
+```
 
 ## c) En LGA, ¿cuáles fueron la mediana del wind_speed y la media de pressure?
 
+```{r}
 LGA <- weather[weather$origin == "LGA",]
 
 median(LGA$wind_speed, na.rm = T)
 mean(LGA$pressure, na.rm = T)
+```
 
 ## d) Después de eliminar los NA de la columna de wind_gust, calcula para cada mes la media de wind_speed y wind_gust, y el número de casos
 
+```{r}
 library(lubridate)
 library(tidyverse)
 library(lubridate)
@@ -57,9 +58,14 @@ meses <- weather_NA %>%
   )
   meses
 
+```
+
+
 # Pregunta 3. Intenta hacer este plot
 
 ## En primer lugar se crean 12 variables que contengan los doce meses del año y los diferentes orígenes
+
+```{r}
 
 EWR1 <- weather[weather$origin == "EWR" & weather$month == 1,]
 EWR2 <- weather[weather$origin == "EWR" & weather$month == 2,]
@@ -100,9 +106,11 @@ LGA10 <- weather[weather$origin == "LGA" & weather$month == 10,]
 LGA11 <- weather[weather$origin == "LGA" & weather$month == 11,]
 LGA12 <- weather[weather$origin == "LGA" & weather$month == 12,]
 
+```
 
 ## A continuación, se procede a crear el diagrama de cajas y bigotes que contenga cada mes y temperatura en función del origen
 
+```{r}
 par(mfrow = c(1,3))
 boxplot(EWR1$temp, EWR2$temp, EWR3$temp, EWR4$temp, EWR5$temp, EWR6$temp, EWR7$temp, EWR8$temp, EWR9$temp, EWR10$temp, EWR11$temp, EWR12$temp, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
 
@@ -110,42 +118,19 @@ boxplot(JFK1$temp, JFK2$temp, JFK3$temp, JFK4$temp, JFK5$temp, JFK6$temp, JFK7$t
 
 boxplot(LGA1$temp, LGA2$temp, LGA3$temp, LGA4$temp, LGA5$temp, LGA6$temp, LGA7$temp,LGA8$temp, LGA9$temp, LGA10$temp, LGA11$temp, LGA12$temp, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
 
-## Funcion que plotee lo anterior
+```
 
-plot_meteo <- function(dat = weather, meteo = "temp", titulo = "Punto de rocío", unidades = "º F")
-{
-dat <- data.frame(dat)
-...
-}
-
-plot_meteo <-function(dat,meteo,titulo,unidad)
-{
-  
-  dat<- data.frame(dat)
-  plot(dat[,meteo],type="l",col="blue", main= titulo,xlab="Hours",ylab= unidad)
-  
-}
-
-function(x, y, z)
-{
-  boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = "red")
-boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = "green")
-boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = "blue")
-}
-{
-  print(mean(EWR$temp, na.rm = T))
-  print(mean(JFK$temp, na.rm = T))
-  print(mean(LGA$temp, na.rm = T))
-}
-
-## Pregunta 4.4. (2 puntos) El día de tu cumpleaños:
+## Pregunta 4. El día de tu cumpleaños:
 
 ## a. Qué correlación tuvieron la temperatura y humedad en cada uno de los origin? Plotealo mediante puntos con ggplot
 
+```{r}
 EWR <- weather[weather$origin == "EWR" & weather$month == 4 & weather$day == 4, ]
 JFK <- weather[weather$origin == "JFK" & weather$month == 4 & weather$day == 4, ]
 LGA <- weather[weather$origin == "LGA" & weather$month == 4 & weather$day == 4, ]
+```
 
+```{r}
 t.test(EWR$temp, EWR$humid)
 t.test(JFK$temp, EWR$humid)
 t.test(LGA$temp, EWR$humid)
@@ -153,9 +138,11 @@ t.test(LGA$temp, EWR$humid)
 cor(EWR$temp, EWR$humid)
 cor(JFK$temp, EWR$humid)
 cor(LGA$temp, EWR$humid)
+```
 
-library(ggplot2)
+### El p valor da en los tres casos mayor que 0.05, por lo que la relación no es estadísticamente significativa. Además, la correlación, también en los tres casos, es negativa, lo cual indica que no existe una relación positiva ni directamente proporcional.
 
+```{r}
 ggplot(data = EWR) + 
   geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
 
@@ -164,8 +151,9 @@ ggplot(data = JFK) +
 
 ggplot(data = LGA) + 
   geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+```
 
-## b. Si comparas la temperatura en los origins JFK y LGA, son estadísticamente diferentes? ¿Qué p valor consigues? Plotea los boxplots.
+
 
 
 ## Pregunta 5. 
@@ -177,3 +165,4 @@ ggplot(data = LGA) +
 ## b. ¿Qué gen sobreexpresado es el más significativo?
 
 ### El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y ( -log(pvalue))
+
