@@ -121,11 +121,11 @@ boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2
 boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
 boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
 
-## Funcion que plotee lo anterior
+## Función que plotee lo anterior
 
 funcion_plot <- function(columna, titulo, unidades)
 {
-  boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
+boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
 boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
 boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
 }
@@ -177,4 +177,4 @@ boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Ori
 
 ## b. ¿Qué gen sobreexpresado es el más significativo?
 
-### El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y ( -log(pvalue))
+###  El gen sobreexpresado más significativo es el Csn1s2b ya que es el que se sitúa más arriba en el eje y (-log(pvalue)), lo cual significa que su p value es muy bajo, inferior a 0.05, por lo que tiene es estadísticamente muy significativo.
