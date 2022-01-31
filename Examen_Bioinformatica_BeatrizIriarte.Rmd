@@ -120,6 +120,39 @@ boxplot(LGA1$temp, LGA2$temp, LGA3$temp, LGA4$temp, LGA5$temp, LGA6$temp, LGA7$t
 
 ```
 
+## Una forma más sencilla de realizar este plot sin tener que guardar los doce meses, sería la siguiente:
+
+```{r}
+EWR <- weather[weather$origin == "EWR", ]
+JFK <- weather[weather$origin == "JFK", ]
+LGA <- weather[weather$origin == "LGA", ]
+```
+
+```{r}
+par(mfrow = c(1,3))
+boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
+boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
+boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
+```
+
+## Función que plotea lo anterior
+
+```{r}
+
+funcion_plot <- function(columna, titulo, unidades)
+{
+  boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
+boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
+boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
+}
+{
+  print(mean(EWR$temp, na.rm = T))
+  print(mean(JFK$temp, na.rm = T))
+  print(mean(LGA$temp, na.rm = T))
+}
+
+```
+
 ## Pregunta 4. El día de tu cumpleaños:
 
 ## a. Qué correlación tuvieron la temperatura y humedad en cada uno de los origin? Plotealo mediante puntos con ggplot

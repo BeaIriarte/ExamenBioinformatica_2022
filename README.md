@@ -110,6 +110,17 @@ boxplot(JFK1$temp, JFK2$temp, JFK3$temp, JFK4$temp, JFK5$temp, JFK6$temp, JFK7$t
 
 boxplot(LGA1$temp, LGA2$temp, LGA3$temp, LGA4$temp, LGA5$temp, LGA6$temp, LGA7$temp,LGA8$temp, LGA9$temp, LGA10$temp, LGA11$temp, LGA12$temp, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
 
+## Una forma más sencilla de realizar este plot sin tener que guardar los doce meses, sería la siguiente:
+
+EWR <- weather[weather$origin == "EWR", ]
+JFK <- weather[weather$origin == "JFK", ]
+LGA <- weather[weather$origin == "LGA", ]
+
+par(mfrow = c(1,3))
+boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
+boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
+boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
+
 ## Funcion que plotee lo anterior
 
 plot_meteo <- function(dat = weather, meteo = "temp", titulo = "Punto de rocío", unidades = "º F")
@@ -126,6 +137,8 @@ plot_meteo <-function(dat,meteo,titulo,unidad)
   
 }
 
+
+
 function(x, y, z)
 {
   boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = "red")
@@ -137,6 +150,8 @@ boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = "
   print(mean(JFK$temp, na.rm = T))
   print(mean(LGA$temp, na.rm = T))
 }
+
+
 
 ## Pregunta 4.4. (2 puntos) El día de tu cumpleaños:
 
@@ -156,14 +171,15 @@ cor(LGA$temp, EWR$humid)
 
 library(ggplot2)
 
-ggplot(data = EWR) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+library(ggplot2)
+weather$sens <- weather$humid * weather$temp
+View(weather)
+sens_calor = weather %>%
+  group_by(origin, hour)%>%
+  summarise(Maximo = max(sens))
 
-ggplot(data = JFK) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
-
-ggplot(data = LGA) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+ggplot(sens_calor) +
+  geom_line(aes(hour, Maximo, col = origin ))
 
 ## b. Si comparas la temperatura en los origins JFK y LGA, son estadísticamente diferentes? ¿Qué p valor consigues? Plotea los boxplots.
 
