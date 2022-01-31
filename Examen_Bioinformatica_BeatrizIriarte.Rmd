@@ -192,8 +192,8 @@ t.test(JFK$temp, LGA$temp)
 boxplot(JFK$temp ~ LGA$temp, col = c(2,3), legend.text = TRUE, xlab = "Temperatura:LGA", ylab = "Temperatura:JFK", main = "Boxplot")
 
 par(mfrow = c(1,2))
-boxplot(JFK$temp, col = 2, legend.text = TRUE, main = "Boxplot JFK")
-boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA")
+boxplot(JFK$temp, col = 2, legend.text = TRUE, main = "Boxplot JFK", xlab = "Origen: JFK", ylab = "Temperatura")
+boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Origen: LGA", ylab = "Temperatura")
 ```
 
 
