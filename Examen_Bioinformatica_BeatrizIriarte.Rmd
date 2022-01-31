@@ -9,14 +9,32 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# EXAMEN BIOINFORMÁTICA 2022
 
 ```{r}
 library(nycflights13)
 weather <- nycflights13::weather
 ```
 
-# Ejercicio 1. Rstudio
+# Pregunta 1. Comandos de Linux
+
+## a) ¿Cuántas palabras hay en el fichero?
+
+  #### cat genes.txt | wc -w
+    
+## b) ¿Cómo cambiarías todos los tabulados por guiones?
+
+  #### cat genes.txt |  sed 's/\t/-/g'
+
+## c) ¿Cómo cambiarías solo la primera aparición?
+
+  #### cat genes.txt | sed 's/\t/-/'
+
+## d) ¿Cómo buscarías todos los genes excepto el gen llamado DSTYK?
+
+  #### cat genes.txt | -v grep DSTYK
+
+# Pregunta 2. Rstudio
 
 ## a) ¿Cuántas columnas y cuántos registros tiene ese dataset?
 
@@ -153,9 +171,11 @@ boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4
 
 ```
 
-## Pregunta 4. El día de tu cumpleaños:
+# Pregunta 4. El día de tu cumpleaños:
 
 ## a. Qué correlación tuvieron la temperatura y humedad en cada uno de los origin? Plotealo mediante puntos con ggplot
+
+### El día de mi cumpleaños es el 4 de abril, por lo que el mes seleccionado será el 4 y el día será el 4 también:
 
 ```{r}
 EWR <- weather[weather$origin == "EWR" & weather$month == 4 & weather$day == 4, ]
@@ -196,8 +216,7 @@ boxplot(JFK$temp, col = 2, legend.text = TRUE, main = "Boxplot JFK", xlab = "Ori
 boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Origen: LGA", ylab = "Temperatura")
 ```
 
-
-## Pregunta 5. 
+# Pregunta 5. 
 
 ## a. ¿Cuál es el punto con FC (Fold change) más grande en valores absolutos?
 

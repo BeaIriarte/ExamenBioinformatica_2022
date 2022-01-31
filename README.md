@@ -123,34 +123,17 @@ boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4
 
 ## Funcion que plotee lo anterior
 
-plot_meteo <- function(dat = weather, meteo = "temp", titulo = "Punto de rocío", unidades = "º F")
+funcion_plot <- function(columna, titulo, unidades)
 {
-dat <- data.frame(dat)
-...
-}
-
-plot_meteo <-function(dat,meteo,titulo,unidad)
-{
-  
-  dat<- data.frame(dat)
-  plot(dat[,meteo],type="l",col="blue", main= titulo,xlab="Hours",ylab= unidad)
-  
-}
-
-
-
-function(x, y, z)
-{
-  boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = "red")
-boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = "green")
-boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = "blue")
+  boxplot(EWR$temp~EWR$month, xlab = "Months", ylab = "ºC", main = "EWR", col = 2)
+boxplot(JFK$temp~JFK$month, xlab = "Months", ylab = "ºC", main = "JFK", col = 3)
+boxplot(LGA$temp~LGA$month, xlab = "Months", ylab = "ºC", main = "LGA", col = 4)
 }
 {
   print(mean(EWR$temp, na.rm = T))
   print(mean(JFK$temp, na.rm = T))
   print(mean(LGA$temp, na.rm = T))
 }
-
 
 
 ## Pregunta 4.4. (2 puntos) El día de tu cumpleaños:
@@ -161,27 +144,29 @@ EWR <- weather[weather$origin == "EWR" & weather$month == 4 & weather$day == 4, 
 JFK <- weather[weather$origin == "JFK" & weather$month == 4 & weather$day == 4, ]
 LGA <- weather[weather$origin == "LGA" & weather$month == 4 & weather$day == 4, ]
 
-t.test(EWR$temp, EWR$humid)
-t.test(JFK$temp, EWR$humid)
-t.test(LGA$temp, EWR$humid)
-
 cor(EWR$temp, EWR$humid)
 cor(JFK$temp, EWR$humid)
 cor(LGA$temp, EWR$humid)
 
 library(ggplot2)
 
-library(ggplot2)
-weather$sens <- weather$humid * weather$temp
-View(weather)
-sens_calor = weather %>%
-  group_by(origin, hour)%>%
-  summarise(Maximo = max(sens))
+cumple <- weather[weather$month == 4 & weather$day == 4, ]
 
-ggplot(sens_calor) +
-  geom_line(aes(hour, Maximo, col = origin ))
+ggplot(data = cumple) + 
+geom_point(mapping = aes(x = temp, y = humid, col = origin))
+
 
 ## b. Si comparas la temperatura en los origins JFK y LGA, son estadísticamente diferentes? ¿Qué p valor consigues? Plotea los boxplots.
+
+t.test(JFK$temp, LGA$temp)
+
+### El p value obtenido es muy inferior a 0.05, por lo que existen evidencias estadísticamente significativas para afirmar que existe una relación y diferencia significativa entre ambos orígenes y sus temperaturas. 
+
+boxplot(JFK$temp ~ LGA$temp, col = c(2,3), legend.text = TRUE, xlab = "Temperatura:LGA", ylab = "Temperatura:JFK", main = "Boxplot")
+
+par(mfrow = c(1,2))
+boxplot(JFK$temp, col = 2, legend.text = TRUE, main = "Boxplot JFK", xlab = "Origen: JFK", ylab = "Temperatura")
+boxplot(LGA$temp, col = 4, legend.text = TRUE, main = "Boxplot LGA", xlab = "Origen: LGA", ylab = "Temperatura")
 
 
 ## Pregunta 5. 
