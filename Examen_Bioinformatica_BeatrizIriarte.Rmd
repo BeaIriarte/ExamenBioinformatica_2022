@@ -164,29 +164,29 @@ LGA <- weather[weather$origin == "LGA" & weather$month == 4 & weather$day == 4, 
 ```
 
 ```{r}
-t.test(EWR$temp, EWR$humid)
-t.test(JFK$temp, EWR$humid)
-t.test(LGA$temp, EWR$humid)
-
 cor(EWR$temp, EWR$humid)
 cor(JFK$temp, EWR$humid)
 cor(LGA$temp, EWR$humid)
 ```
 
-### El p valor da en los tres casos mayor que 0.05, por lo que la relación no es estadísticamente significativa. Además, la correlación, también en los tres casos, es negativa, lo cual indica que no existe una relación positiva ni directamente proporcional.
+### La correlación en los tres casos es negativa, lo cual indica que no existe una relación positiva ni directamente proporcional.
 
 ```{r}
-ggplot(data = EWR) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+library(ggplot2)
 
-ggplot(data = JFK) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+cumple <- weather[weather$month == 4 & weather$day == 4, ]
 
-ggplot(data = LGA) + 
-  geom_point(mapping = aes(x = temp, y = humid, alpha = 0.1))
+ggplot(data = cumple) + 
+geom_point(mapping = aes(x = temp, y = humid, col = origin))
 ```
 
+## b. Si comparas la temperatura en los origins JFK y LGA, son estadísticamente diferentes? ¿Qué p valor consigues? Plotea los boxplots.
 
+```{r}
+t.test(JFK$temp, LGA$temp)
+```
+
+## El p value obtenido es muy inferior a 0.05, por lo que existen evidencias estadísticamente significativas para afirmar que existe una relación y diferencia significativa entre ambos orígenes y sus temperaturas. 
 
 
 ## Pregunta 5. 
